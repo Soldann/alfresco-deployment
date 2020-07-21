@@ -1,0 +1,21 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: alfresco-db
+  namespace: default
+spec:
+  teamId: "alfresco"
+  volume:
+    size: 100Gi
+  numberOfInstances: 2
+  users:
+    alfresco:  # database owner
+    - superuser
+    - createdb
+      #foo_user: []  # role for application foo
+  databases:
+    alfresco: alfresco  # dbname: owner
+    #preparedDatabases:
+          # bar: {}
+  postgresql:
+    version: "11"
