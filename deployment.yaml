@@ -285,6 +285,19 @@ spec:
     spec:
       containers:
       - env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: alfresco.alfresco-db.credentials
+              key: password
+        - name: ACCESS_KEY
+          value: minioadmin
+        - name: SECRET_KEY
+          value: minioadmin
+        - name: BUCKET_NAME
+          value: alfresco
+        - name: URL
+          value: http://minio-service:9000
         - name: JAVA_OPTS
           value: " -Ddb.driver=org.postgresql.Driver -Ddb.username=alfresco -Ddb.password=$DB_PASSWORD
             -Ddb.url=jdbc:postgresql://alfresco-db.default.svc.cluster.local:5432/alfresco -Dsolr.host=solr6 -Dsolr.port=8983
@@ -303,7 +316,7 @@ spec:
             secretKeyRef: 
                name: alfresco.alfresco-db.credentials
                key: password
-        image: alfresco/alfresco-content-repository-community:6.2.0-ga
+        image: soldann/alfresco-community-s3-contentstore:stable
         imagePullPolicy: ""
         name: alfresco
         resources:
